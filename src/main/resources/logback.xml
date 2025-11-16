@@ -1,0 +1,36 @@
+<configuration>
+    <appender name="ConsoleAppender" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="FileAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!-- current active file -->
+        <file>logs/journalApp.log</file>
+
+        <!-- rolling policy: rotate by date and size -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <!-- rolled files pattern. %i is the index when size rollover happens same day -->
+            <fileNamePattern>logs/journalApp-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+
+            <!-- max size before index increments -->
+            <maxFileSize>10MB</maxFileSize>
+
+            <!-- keep 10 days/archives -->
+            <maxHistory>10</maxHistory>
+
+            <!-- total size cap (optional) -->
+            <!-- <totalSizeCap>1GB</totalSizeCap> -->
+        </rollingPolicy>
+
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <root level="INFO">
+        <appender-ref ref="ConsoleAppender"/>
+        <appender-ref ref="FileAppender"/>
+    </root>
+</configuration>
